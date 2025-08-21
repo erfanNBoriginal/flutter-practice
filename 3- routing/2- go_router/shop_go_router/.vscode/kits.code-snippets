@@ -1,0 +1,15 @@
+{
+  // Place your snippets for dart here. Each snippet is defined under a snippet name and has a prefix, body and
+  // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+  // same ids are connected.
+  // Example:
+  "import uikit": {
+    "prefix": "impu",
+    "body": [
+      "import '/ui_kit/ui_kit.dart' as U;"
+      // "import 'package:shop_uikit/ui_kit/ui_kit.dart' as U;"
+    ],
+    "description": "Import UiKit"
+  }
+}
