@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shop_go_router/domains/store/store_repository.dart';
 import 'package:shop_go_router/modules/shop_cart/cubit/shop_cart_cubit.dart';
 import 'package:shop_go_router/modules/shop_cart/shop_cart_card.dart';
+import 'package:shop_go_router/ui_kit/button.dart';
 import '/ui_kit/ui_kit.dart' as U;
 
 class CheckoutPage extends StatelessWidget {
@@ -26,148 +27,182 @@ class CheckoutPage extends StatelessWidget {
           // }).toList;
           print('MediaQuery.of(context).size.height');
           print(MediaQuery.of(context).size.height);
-          return Hero(
-            tag: 1,
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 101,
-                  left: 0,
-                  right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: U.Card(
-                        height:
-                            // MediaQuery.of(context).size.height - cardsize > 0
-                            //     ? MediaQuery.of(context).size.height - cardsize
-                            //     : 0,
-                            MediaQuery.of(context).size.height - 450 > 0
-                                ? MediaQuery.of(context).size.height - 450
-                                : 0,
-                        child: ListView(
-                          children: [
-                            Row(
-                              children: [U.Text('text')],
+          return Stack(
+            children: [
+              Positioned(
+                top: 71,
+                left: 0,
+                right: 0,
+                bottom: 250,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: U.Card(
+                      height:
+                          // MediaQuery.of(context).size.height - cardsize > 0
+                          //     ? MediaQuery.of(context).size.height - cardsize
+                          //     : 0,
+                          MediaQuery.of(context).size.height - 450 > 0
+                              ? MediaQuery.of(context).size.height - 450
+                              : 0,
+                      child: ListView(
+                        children: [
+                          Row(
+                            children: [U.Text('سبد خرید')],
+                          ),
+                          U.Divider.horizontal(
+                            thickness: 2,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: U.Card(
+                              // height: 200,
+                              // height: MediaQuery.of(context).size.height / 2,
+                              height:
+                                  MediaQuery.of(context).size.height - 500 > 0
+                                      ? MediaQuery.of(context).size.height - 500
+                                      : 0,
+                              child: state.loading
+                                  ? Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : ListView.separated(
+                                      separatorBuilder: (_, index) {
+                                        return const SizedBox(height: 9);
+                                      },
+                                      itemCount: state.shopItems.length,
+                                      itemBuilder: (context, index) {
+                                        print(
+                                            'MediaQuery.of(context).size.height');
+                                        print(
+                                            MediaQuery.of(context).size.height);
+                                        return ShopCartCard(
+                                            shopItem: state.shopItems[index]);
+                                      },
+                                    ),
                             ),
-                            U.Divider.horizontal(
-                              thickness: 2,
+                          ),
+                          Spacer(),
+                          SizedBox(
+                            height: 17,
+                            child: U.Divider.horizontal(
+                              thickness: 16,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: U.Card(
-                                // height: 200,
-                                // height: MediaQuery.of(context).size.height / 2,
-                                height:
-                                    MediaQuery.of(context).size.height - 650 > 0
-                                        ? MediaQuery.of(context).size.height -
-                                            650
-                                        : 0,
-                                child: state.loading
-                                    ? Center(
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : ListView.builder(
-                                        itemCount: state.shopItems.length,
-                                        itemBuilder: (context, index) {
-                                          print(
-                                              'MediaQuery.of(context).size.height');
-                                          print(MediaQuery.of(context)
-                                              .size
-                                              .height);
-                                          return ShopCartCard(
-                                              shopItem: state.shopItems[index]);
-                                        },
-                                      ),
+                          ),
+                          SizedBox(
+                            height: 11,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                width: 19,
                               ),
-                            ),
-                            SizedBox(
-                              height: 11,
-                            ),
-                            U.Divider.horizontal(
-                              thickness: 9,
-                            ),
-                            SizedBox(
-                              height: 11,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                U.Text('text'),
-                                U.Text(state.totalCost.toString()),
-                                U.Text('text'),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 21,
-                            ),
-                            Row(
-                              //  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                U.Text('text:', color: U.Theme.primary),
-                                SizedBox(
-                                  width: 22,
-                                ),
-                                U.Text(state.totalCost.toString()),
-                              ],
-                            )
-                          ],
-                        )),
-                  ),
+                              U.Text('چمع سبد:', color: U.Theme.primary),
+                              U.Text(state.totalCost.toString()),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              U.Text('جمع تخفیفات', color: U.Theme.primary),
+                              U.Text('0'),
+                              SizedBox(
+                                width: 19,
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 21,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              U.Text('قابل پرداخت:', color: U.Theme.primary),
+                              SizedBox(
+                                width: 22,
+                              ),
+                              U.Text(state.totalCost.toString()),
+                            ],
+                          )
+                        ],
+                      )),
                 ),
-                Positioned(
-                  right: 0,
-                  left: 0,
-                  top: 0,
-                  child: U.AppBar.secondary(
-                      title: 'title',
-                      onBackPressed: () {
-                        GoRouter.of(context).pop();
-                      }),
-                ),
-                Positioned(
-                  right: 0,
-                  left: 0,
-                  bottom: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(11.0),
-                    child: U.Card(
-                        height: 300,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                U.Image.icon(
-                                  path: U.Icons.profile,
-                                  color: U.Theme.primary,
-                                ),
-                                SizedBox(
-                                  width: 16,
-                                ),
-                                U.Text('itilat ')
-                              ],
-                            ),
-                            U.Divider.horizontal(
-                              thickness: 9,
-                            ),
-                            U.TextInput(
-                                hint: 'ooostan',
-                                title: 'adress',
-                                controller: TextEditingController()),
-                            U.TextInput(
-                                title: 'code takhfiff',
-                                controller: TextEditingController()),
-                            U.Button(
-                              title: 'hesaplash',
+              ),
+              Positioned(
+                right: 0,
+                left: 0,
+                top: 0,
+                child: U.AppBar.secondary(
+                    title: 'تکمیل خرد',
+                    onBackPressed: () {
+                      GoRouter.of(context).pop();
+                    }),
+              ),
+              Positioned(
+                right: 0,
+                left: 0,
+                bottom: 0,
+                child: Padding(
+                  padding: const EdgeInsets.all(11.0),
+                  child: U.Card(
+                      height: 230,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              U.Image.icon(
+                                path: U.Icons.profile,
+                                color: U.Theme.primary,
+                              ),
+                              SizedBox(
+                                width: 16,
+                              ),
+                              U.Text('اطلاعات ارسال و پرداخت ')
+                            ],
+                          ),
+                          U.Divider.horizontal(
+                            thickness: 9,
+                          ),
+                          U.TextInput(
+                              hint: 'استان شهر منطقه',
+                              title: 'آدرس تحویل :',
+                              controller: TextEditingController()),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                child: U.TextInput(
+                                    title: 'کد تخفیف',
+                                    hint: 'AHBVI243+',
+                                    controller: TextEditingController()),
+                              ),
+                              SizedBox(
+                                width: 12,
+                              ),
+                              U.IconButton(
+                                  color: U.Theme.secondary,
+                                  icon: Icon(
+                                      color: Colors.white,
+                                      Icons.airplane_ticket),
+                                  onPressed: () {})
+                            ],
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Hero(
+                            tag: 1,
+                            child: U.Button(
+                              title: 'پرداخت',
                               onPressed: () {},
                               color: U.ButtonColor.primary,
-                            )
-                          ],
-                        )),
-                  ),
-                )
-              ],
-            ),
+                            ),
+                          )
+                        ],
+                      )),
+                ),
+              )
+            ],
           );
         },
       ),
